@@ -1,6 +1,5 @@
 # ticket
-The compare of tickets' price</br>
-my purpose is to buy the cheapest tickets.</br>
+    my purpose is to buy the cheapest tickets.
 ### You can use it easily:</br>
-    1.npm install</br>
+    1.npm install
     2.node app.js
