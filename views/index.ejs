@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1>Welcome to <%= title %> !</h1>
+    <p>Author :studentech</p>
+    <p>Refresh Time :2016/2/12</p>
+    <div id = 'data'>
+    <% data.forEach(function(list){ %>
+    	<div class = 'list'>
+            <div class = 'pic'>
+    		<a href="<%= list.f_href %>" target = '_blank'><img src="<%= list.picsrc %>" alt = 'pic'/></a>
+            </div>
+            <div class = 'info'>
+            <li>片名：<%= list.name %></li>
+            <li>类型：<%= list.type %></li>
+            <li>时长：<%= list.mins %></li>
+            <li>国家：<%= list.country %></li>
+            <li>发行时间：<%= list.start_date %></li>
+            <li>导演：<%= list.director %></li>
+            <li>主演：<%= list.actor %></li>
+            </div>
+    		
+    	</div>
+    <% }) %>
+    </div>
+  </body>
+</html>
