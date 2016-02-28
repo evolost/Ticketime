@@ -6,26 +6,25 @@
   </head>
   <body>
     <h1>Welcome to <%= title %> !</h1>
-    <p>Search <input type = "text" id = 'search' placeholder = 'find your film' /></p>
     <p>Author :studentech</p>
     <p>Refresh Time :<%= date %></p>
     <div id = 'data'>
     <% data.forEach(function(list){ %>
-    	<div class = 'list'>
+        <div class = 'list'>
             <div class = 'pic'>
-    		<a href="<%= list.f_href %>" target = '_blank'><img src="<%= list.picsrc %>" alt = 'pic'/></a>
+            <a href="<%= list.f_href %>" target = '_blank'><img src="<%= list.picsrc %>" alt = 'pic'/></a>
             </div>
             <div class = 'info'>
             <li>片名：<%= list.name %></li>
-            <li>类型：<%= list.type %></li>
             <li>时长：<%= list.mins %></li>
-            <li>语言：<%= list.language %></li>
-            <li>导演：<%= list.director %></li>
-            <li>主演：<%= list.actor %></li>
-            <li>评分：<%= list.grade %></li>
+            <li>影院：<%= list.c_name %></li>
+            <li>区域：<%= list.c_area %> / 影院地址：<%= list.c_address %></li>
+            <li>上映日期：<%= list.date %></li>
+            <li>开场时间：<%= list.start_time %> / 散场时间：<%= list.end_time %></li> 
+            <li>平台：<%= list.standard %> / 价格：<%= list.price %></li>
             </div>
-    		
-    	</div>
+            
+        </div>
     <% }) %>
     </div>
   </body>

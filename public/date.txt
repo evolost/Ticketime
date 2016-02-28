@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= title %></title>
+    <title>Admin</title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
     <script src="/javascripts/jquery-1.11.1.min.js"></script>
     <!-- <script src="/javascripts/main.js"></script> -->
@@ -9,19 +9,20 @@
   <body>
     <h1>Administrator, Welcome !</h1>
     <form action = './admin' method = 'post'>
-      <p>起始页：<input type = 'text' name = 'page[from]' placeholder = 'start'/></p>
-      <p>终止页：<input type = 'text' name = 'page[to]' placeholder = 'end'/></p>
-      <p><input type = 'submit' value = "更新数据" /></p>
+      <p>��ʼҳ��<input type = 'text' name = 'page[from]' placeholder = 'start'/></p>
+      <p>��ֹҳ��<input type = 'text' name = 'page[to]' placeholder = 'end'/></p>
+      <p><input type = 'submit' value = "Refresh" /></p>
     </form>
-    <input type='button' id='button' value = '数据处理' />
+    <!--
+    <input type='button' id='button' value = 'refresh' />
     <script>
     	$('#button').on('click',function(e){
-			$.post('/admin/getPriceButton',function(data){
+			$.post('/admin',function(data){
 				if(!data) alert('refresh failed!');
 				alert(data);
 			});
 		});
     </script>
-    
+    -->
   </body>
 </html>
