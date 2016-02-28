@@ -6,9 +6,8 @@
   </head>
   <body>
     <h1>Welcome to <%= title %> !</h1>
-    <p>Search <input type = "text" id = 'search' placeholder = 'find your film' /></p>
     <p>Author :studentech</p>
-    <p>Refresh Time :<%= date %></p>
+    <p>Refresh Time :2016/2/12</p>
     <div id = 'data'>
     <% data.forEach(function(list){ %>
     	<div class = 'list'>
@@ -19,10 +18,10 @@
             <li>片名：<%= list.name %></li>
             <li>类型：<%= list.type %></li>
             <li>时长：<%= list.mins %></li>
-            <li>语言：<%= list.language %></li>
+            <li>国家：<%= list.country %></li>
+            <li>发行时间：<%= list.start_date %></li>
             <li>导演：<%= list.director %></li>
             <li>主演：<%= list.actor %></li>
-            <li>评分：<%= list.grade %></li>
             </div>
     		
     	</div>

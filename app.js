@@ -5,7 +5,9 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
-var index = require('./routes/index');
+var crawler = require('./lib/crawler');
+var routes = require('./routes/index');
+var users = require('./routes/users');
 var admin = require('./routes/admin');
 
 var app = express();
@@ -19,13 +21,18 @@ app.engine('.html', require('ejs').__express);
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', index);
-app.use('/tickets',index);
+app.use('/', routes);
+app.use('/users', users);
 app.use('/admin', admin);
+app.use('/buttonClicked',function(req, res) {
+    res.send('refresh success!'); // 此处发送的data, 前端中callback里将会得到的data
+    crawler.getPageData(1,10)//刷新并保存数据
+    res.end();// 如果不执行end(), 那么网页则会一直等待response
+});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
