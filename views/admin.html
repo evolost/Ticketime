@@ -8,14 +8,56 @@
   </head>
   <body>
     <h1>Administrator, Welcome !</h1>
-    <input type = 'button' id = 'button' value = "refresh" />
+    <form action = './admin' method = 'post'>
+      <p>起始页：<input type = 'text' name = 'page[from]' placeholder = 'start'/></p>
+      <p>终止页：<input type = 'text' name = 'page[to]' placeholder = 'end'/>
+      <p><input type = 'submit'  value = "更新数据" /></p>
+    </form>
+    <input type='button' id='button' value = '数据处理' />
     <script>
+      // function submitdata(){
+      //   var params ={
+      //       price_id: $("#price_id").val(),
+      //       // price: $("#price").val(),
+      //       // start_time: $("#start_time").val(),
+      //       // end_time: $("#end_time").val(),
+      //       // standard: $("#standard").val(),
+      //   };
+      //   $.ajax({
+      //       data: params,
+      //       url: './admin',
+      //       type: 'post',
+      //       dataType: 'json',
+      //       async: false,
+      //       cache: false,
+
+      //       success: function(data){
+
+      //           var datas = JSON.parse(data);
+      //           if(200 == datas.code){
+      //               window.alert(datas.message);
+      //               //$("#id_tip").val(datas.message);
+      //           }else{
+      //               window.alert(datas.message);
+      //              // $("#id_tip").val(datas.message);
+      //           }
+      //       },
+      //       error: function(jqXHR, textStatus, errorThrown){
+      //           window.alert('error ' + textStatus + " " + errorThrown);
+      //       }
+      //   });
+      // }
+
+
     	$('#button').on('click',function(e){
-			$.get('/buttonClicked',function(data){
+			$.post('/admin/getPriceButton',function(data){
 				if(!data) alert('refresh failed!');
-				alert(data);
-			});
-		});
+  				alert(data);
+  			});
+  		});
+
+
     </script>
+    
   </body>
 </html>
