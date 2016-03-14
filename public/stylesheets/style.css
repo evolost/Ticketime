@@ -1,6 +1,5 @@
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+	font-family: 'Open Sans', Helvetica, Tahoma, Arial, 'Microsoft YaHei', 微软雅黑, STXihei, 华文细黑, SimSun, 宋体, Heiti, 黑体, sans-serif;
 }
 
 a {
@@ -11,9 +10,6 @@ a {
 
 }
 
-.list{
-	height: 200px;
-}
 
 .pic{
 	float: left;
@@ -24,11 +20,41 @@ a {
 
 }
 
-li{
-	list-style-type: none;
-	margin-bottom: 8px;
-}
 
 #search{
 	
 }
+.mycontainer{
+	padding: 10px;
+}
+nav{
+	background-color: #438C13;
+}
+
+.mycart-content{
+	padding: 3px;
+}
+
+
+.parallax-container {
+	height: 500px;
+}
+.mycard{
+	opacity: 0.95;
+}
+
+.myselect{
+	display: block;
+	float: left;
+	text-align: center;
+	width: 33.333%;
+	padding: 10px;
+}
+
+.test{
+	height: 60%;
+	opacity: 0.95;
+	top: 20%;
+}
+
+

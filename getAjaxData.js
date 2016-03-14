@@ -21,7 +21,7 @@ phantom.addCookie({
     httponly: false,
     expires: Date.now() + (1000 * 60 * 60 * 24 * 5)
 });
-//var url = 'http://m.gewara.com/movie/m/choiceMovieSim.xhtml?cid=40342719&mid=258698741&openDate=2016-03-03';
+//var url = 'http://m.gewara.com/movie/m/choiceMovieSim.xhtml?cid=100795420&mid=284316908&openDate=2016-3-14';
 //var url = 'date.html';
 var fs = require('fs');
 //var x = require('casper').selectXPath;
@@ -33,9 +33,10 @@ casper.start(url,function(){
 //打开具体url并处理具体页面
 casper.GetDetailUrl = function(detailUrl){
 	casper.thenOpen(detailUrl,function(){
-		casper.wait(120,function(){
+		casper.wait(140,function(){
 			casper.then(function(){
 				fs.write('./public/tempData',this.getHTML('.ui_opiTime'),'w');
+				//fs.write('./public/tempData_old', fs.read('./public/tempData'));
 			})
 		})
 	})

@@ -16,7 +16,7 @@ router.post('/',function(req,res,next){
     //crawler.getCinameData();
 
     /*刷新影片信息*/
-    //crawler.getFilmData(data.from || 1,data.to || 2)//刷新并保存数据
+    crawler.getFilmData(data.from || 1,data.to || 3)//刷新并保存数据
     res.redirect('/admin');
 });
 
