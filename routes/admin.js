@@ -17,6 +17,7 @@ router.post('/',function(req,res,next){
 
     /*刷新影片信息*/
     crawler.getFilmData(data.from || 1,data.to || 3)//刷新并保存数据
+	//crawler.getMaoYanCinemaData();
     res.redirect('/admin');
 });
 

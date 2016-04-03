@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var http = require('http');
 var db = require('../lib/db');
 
 var myDate = new Date();
@@ -8,9 +9,22 @@ var month = myDate.getMonth()+1;       //获取当前月份(0-11,0代表1月)
 var date = myDate.getDate();        //获取当前日(1-31)
 var nowDate = year + '-' + month + '-' + date;
 
+//数据分页
+/*
+router.get('/page/:num', function(req, res){
+	res.render('index', {
+		layers: laypage({
+			curr: req.params.page || 1
+			,url: req.url //必传参数，获取当前页的url
+			,pages: 18 //分页总数你需要通过sql查询得到
+		}),
+		test:'test'
+	})
+});
+*/
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
-
 	var columns = ['f_id','name' ,'picsrc' ,'type' ,'mins' ,'language' ,'director' ,'actor' ,'f_href' ,'grade'];
 	db.getLists(columns,'film_info',function(err, results) {
 		//console.log('[results]'+results)
@@ -22,11 +36,48 @@ router.get('/', function(req, res, next) {
 		});
 });
 
+//Get office page 实时票房接口
+router.get('/office', function(req, res, next) {
+	var getUrl = 'http://v.juhe.cn/boxoffice/wp.php?key=a73957b33a4fb9b30ffaedfc2908d4ba&area=CN';
+	//db.getAllLists('film_info',function(err,results){
+	//	console.log('[results]'+results[0].name);
+	//})
+	//var lastGetDate =
+	getApi(getUrl,function (info) {
+		res.render('office', {
+			title: 'Ticketime - 实时票房',
+			date : nowDate,
+			data : info
+		});
+	})
+
+});
+
+/*Get about Page*/
+router.get('/about', function(req, res, next) {
+	res.render('about', {
+		title: 'Ticketime - 关于时光电影票',
+		date : nowDate
+	});
+});
+
+/*Get hotmovie Page*/
+router.get('/hotmovie', function(req, res, next) {
+	var getUrl = 'http://op.juhe.cn/onebox/movie/pmovie.php?city=%E5%8D%97%E4%BA%AC&key=a12d05f17c08b7bed7aa637fad5fcba9';
+	getApi(getUrl,function (info) {
+		console.log(info.result.data[0].data);
+		res.render('hotmovie', {
+			title: 'Ticketime - 正在热映',
+			date : nowDate,
+			data : info
+		});
+	})
+});
+
 router.get('/tickets',function(req,res,next){
 	var columns_price = ['price_id','c_id' ,'f_id' ,'p_id' ,'start_time' ,'end_time' ,'date' ,'standard' ,'price'];
 	var columns_film = ['name' ,'picsrc' ,'type' ,'mins' ,'language' ,'director' ,'actor' ,'f_href' ,'grade'];
 	var columns_cinema = ['c_name' ,'c_picsrc' ,'c_address' ,'c_area_id' ,'c_area' ,'c_href'];
-
 	db.getLists(columns_price,'film_price',function(err,results){
 		var prices = results;
 		var price_data = [];
@@ -65,9 +116,6 @@ router.get('/tickets',function(req,res,next){
 				});
 			})(i)
 		}
-
-		//console.log('[price_data_out]:'+price_data);
-
 	})
 })
 
@@ -129,12 +177,24 @@ router.post('/priceJson',function(req,res,next){
 		//console.log(result);
 		res.json(JSON.stringify(result));
 	})
-	//db.findDate(['price_id','price'],'film_price','c_id',c_id, function (err,result) {
-	//	if(err) return;
-	//	//console.log(JSON.stringify(result));
-	//	res.json(JSON.stringify(result));
-	//})
-	//res.json({success:1});
 })
+
+//Api请求
+function getApi(url,call){
+	http.get(url,function(res) {
+		var pageData = "";
+		res.setEncoding('utf8');
+		res.on('error', function (err) {
+			//出错处理
+		});
+		res.on('data', function (chunk) {
+			pageData += chunk;
+		});
+		res.on('end', function(){
+			pageData = JSON.parse(pageData);
+			call(pageData);
+		});
+	})
+}
 
 module.exports = router;

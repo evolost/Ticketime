@@ -1,130 +1,83 @@
 <!DOCTYPE html>
-  <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-    <link type="text/css" rel="stylesheet" href="stylesheets/materialize.min.css"  media="screen,projection"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-    <script src="/javascripts/vue.js"></script>
-    <script src="/javascripts/jquery-1.11.1.min.js"></script>
-    <script src="/javascripts/materialize.min.js"></script>
+<% include ./public/head %>
+<body>
+<!-- Header goes here -->
+<% include ./public/header %>
+    <!-- 巨幕展示 -->
+    <div class="slider">
+        <ul class="slides">
+            <li>
+                <img src="http://img31.mtime.cn/mg/2016/02/23/111550.50105367.jpg"> <!-- random image -->
+                <div class="caption left-align">
+                    <h3>树懒先生极致的慢生活</h3>
+                    <h5 class="light grey-text text-lighten-3">i'm going crazy!!!!</h5>
+                </div>
+            </li>
+            <li>
+                <img src="http://img31.mtime.cn/mg/2016/03/03/145109.47039961.jpg"> <!-- random image -->
+                <div class="caption center-align">
+                    <h3>一代宗师，延续传奇</h3>
+                    <h5 class="light grey-text text-lighten-3">再现巅峰！</h5>
+                </div>
+            </li>
+        </ul>
+    </div>
 
-</head>
-  <body>
-  <div>
-      <!-- Navbar goes here -->
-      <nav style="background-color: #41B146">
-          <div class="nav-wrapper">
-              <a href="#!" class="brand-logo"><img class="responsive-img" src="./images/ticketime.png"></a>
-              <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
-              <ul class="right hide-on-med-and-down" style="margin-right: 20px;">
-                  <li><a href="#">首页</a></li>
-                  <li><a href="#">热映</a></li>
-                  <li><a href="#">关于</a></li>
-              </ul>
-              <ul class="side-nav" id="mobile-demo">
-                  <li><a href="#">首页</a></li>
-                  <li><a href="#">热映</a></li>
-                  <li><a href="#">关于</a></li>
-              </ul>
-          </div>
-      </nav>
-      <!-- 巨幕展示 -->
-      <div class="parallax-container">
-          <div class="parallax myparallaxs"><img src="http://img31.mtime.cn/mg/2016/03/04/095710.59610406.jpg"></div>
-      </div>
+    <!-- Page Layout here -->
 
-      <!-- Page Layout here -->
+    <div class="row mycontainer">
+        <% data.forEach(function(list){ %>
+        <div class = 'list'>
+            <div class="col s6 m4 l2">
+                <div class="card center-align myclick">
+                    <div class="card-image waves-effect waves-block waves-light">
+                        <img data-target="modal_<%= list.f_id %>" class="modal-trigger responsive-img" style = "width:auto;padding-top: 10px;" src="<%= list.picsrc %>" alt = '<%= list.name %>'>
+                    </div>
+                    <div class="card-content" style="padding: 12px;font-size: 10px">
+                        <span title="点击这里查看详细信息" class="card-title activator grey-text text-darken-4 truncate" style="font-size: 16px;line-height: 24px;><a href="<%= list.f_href %>" target = '_blank'><%= list.name %></a></span>
+                    </div>
+                    <div class="card-reveal left-align mycard" style = "padding: 0px 5px;box-sizing: initial;background: rgba(75,75,75,0.7);color:white;font-size: 14px">
+                        <p>评分：<%= list.grade %></p>
+                        <p class = "truncate">类型：<%= list.type %></p>
+                        <p>时长：<%= list.mins %></p>
+                        <p>语言：<%= list.language %></p>
+                        <p>导演：<%= list.director %></p>
+                        <p class = "truncate">主演：<%= list.actor %></p>
+                    </div>
+                    <!--信息选择弹出-->
+                    <div id="modal_<%= list.f_id %>" class="modal modal_info" style="height:80%;width: 92%;">
+                        <div class="modal-content myfixed">
+                            <h5 value="<%= list.f_id %>">您当前锁定的影片是:<%= list.name %></h5>
+                            <!--三级联动-->
+                            <div class="selectList">
+                                <select class="city myselect">
+                                    <option>请选择城市</option>
+                                </select>
+                                <select class="district myselect">
+                                    <option>请选择地区</option>
+                                </select>
+                                <select class="cinema myselect">
+                                    <option>请选择影院</option>
+                                </select>
+                                <select class="date myselect">
+                                    <option>今天</option>
+                                    <option>明天</option>
+                                    <option>后天</option>
+                                </select>
+                            </div>
+                            <!--end-->
+                        </div>
+                        <div class = "createTable">
+                            <!--表格数据区域-->
+                        </div>
+                    </div>
+                </div>
 
-      <div class="row mycontainer">
-          <% data.forEach(function(list){ %>
-          <div class = 'list'>
-              <div class="col s6 m4 l2">
-                  <div class="card center-align myclick">
-                      <div class="card-image waves-effect waves-block waves-light">
-                          <img data-target="modal_<%= list.f_id %>" class="modal-trigger responsive-img" style = "width:auto;padding-top: 10px;" src="<%= list.picsrc %>" alt = '<%= list.name %>'>
-                      </div>
-                      <div class="card-content" style="padding: 12px;font-size: 10px">
-                          <span title="点击这里查看详细信息" class="card-title activator grey-text text-darken-4 truncate" style="font-size: 16px;line-height: 24px;><a href="<%= list.f_href %>" target = '_blank'><%= list.name %></a></span>
-                      </div>
-                      <div class="card-reveal left-align mycard" style = "padding: 0px 5px;box-sizing: initial;background: rgba(75,75,75,0.7);color:white;font-size: 14px">
-                          <p>评分：<%= list.grade %></p>
-                          <p class = "truncate">类型：<%= list.type %></p>
-                          <p>时长：<%= list.mins %></p>
-                          <p>语言：<%= list.language %></p>
-                          <p>导演：<%= list.director %></p>
-                          <p class = "truncate">主演：<%= list.actor %></p>
-                      </div>
-                      <!--信息选择弹出-->
-                      <div id="modal_<%= list.f_id %>" class="modal modal_info" style="height:80%;width: 92%;">
-                          <div class="modal-content">
-                              <h5>请选择基本信息：</h5>
-                              <p value="<%= list.f_id %>">您当前锁定的影片是:<%= list.name %></p>
-                              <div class="selectList">
-                                  <select class="city myselect">
-                                      <option>请选择城市</option>
-                                  </select>
-                                  <select class="district myselect">
-                                      <option>请选择地区</option>
-                                  </select>
-                                  <select class="cinema myselect">
-                                      <option>请选择影院</option>
-                                  </select>
-                              </div>
-                          </div>
-                          <div class = "createTable">
-                              <!--表格数据区域-->
-                          </div>
-                          <!--测试表格数据-->
-                          <!--
-                          <table class="striped">
-                              <thead>
-                              <tr>
-                                  <th data-field="id">时间段</th>
-                                  <th data-field="name">格瓦拉电影</th>
-                                  <th data-field="price">淘宝电影</th>
-                              </tr>
-                              </thead>
-                              <tbody>
-                              <tr>
-                                  <td>上午场</td>
-                                  <td>￥36</td>
-                                  <td>￥28</td>
-                              </tr>
-                              <tr>
-                                  <td>下午场</td>
-                                  <td>￥46</td>
-                                  <td>￥43</td>
-                              </tr>
-                              <tr>
-                                  <td>黄金场</td>
-                                  <td>￥48</td>
-                                  <td>￥56</td>
-                              </tr>
-                              </tbody>
-                          </table>
-                          -->
-                          <!--
-                          <div class="modal-footer">
-                              <button class="btn waves-effect waves-light mybutton" type="submit" name="action" style="float: none;">开始比价
-                                  <i class="mdi-content-send right"></i>
-                              </button>
-                          </div>
-                          -->
-                      </div>
-                  </div>
-
-              </div>
-          </div>
-          <% }) %>
-      <!-- Grey navigation panel -->
-
-      <!-- Teal page content -->
-
-      </div>
-
-
-  </div>
-  <!--
+            </div>
+        </div>
+        <% }) %>
+    </div>
+<!--
     <div id="app">
         <p>您正在检索的是：{{ messages }}</p>
         <p>Search <input v-model = 'messages' type = "text" id = 'search' placeholder = 'find your film' /></p>
@@ -137,271 +90,196 @@
 
     </div>
   -->
-  <footer class="page-footer" style="background-color: #41B146;">
-      <div class="container">
-          <div class="row">
-              <div class="col l6 s12">
-                  <h5 class="white-text">Ticketime - 时光电影票</h5>
-                  <p class="grey-text text-lighten-4">我们不生产电影票</p>
-                  <p class="grey-text text-lighten-4">我们只是电影票的搬运工</p>
-                  <p class="grey-text text-lighten-4">但我们只给你带来最便宜的Tickets</p>
+<!--Footer begain here-->
+<% include ./public/footer %>
 
-              </div>
-              <div class="col l4 offset-l2 s12">
-                  <h5 class="white-text">友情链接</h5>
-                  <ul>
-                      <li><a class="grey-text text-lighten-3" target="_blank"href="http://www.gewara.com/">格瓦拉</a></li>
-                      <li><a class="grey-text text-lighten-3" target="_blank" href="http://nj.meituan.com/dianying/">美团(猫眼)电影</a></li>
-                      <li><a class="grey-text text-lighten-3" target="_blank"href="http://dianying.taobao.com/">淘宝电影</a></li>
-                      <li><a class="grey-text text-lighten-3" target="_blank"href="http://nj.nuomi.com/movie">百度糯米</a></li>
-                      <li><a class="grey-text text-lighten-3" target="_blank"href="http://www.dianping.com/nanjing/movie">大众点评</a></li>
-                  </ul>
-              </div>
-          </div>
-      </div>
-      <!--测试按钮-->
-      <!--
-      <button class="btn waves-effect waves-light" id = "testButton" type="submit" name="action" style="float: none;">开始比价
-          <i class="mdi-content-send right"></i>
-      </button>
-      -->
-      <!--end-->
-      <div class="footer-copyright">
-          <div class="container">
-              © Ticketime 2016 Copyright
-          </div>
-      </div>
-  </footer>
-  <script>
-      new Vue({
-          el: '#app',
-          data: {
-              messages: '叶问',
-              newTodo:'',
-              todos:[],
-              selected: 'A',
-              options: [
-                  { text: 'One', value: 'A' },
-                  { text: 'Two', value: 'B' },
-                  { text: 'Three', value: 'C' }
-              ]
-          },
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            messages: '叶问',
+            newTodo:'',
+            todos:[],
+            selected: 'A',
+            options: [
+                { text: 'One', value: 'A' },
+                { text: 'Two', value: 'B' },
+                { text: 'Three', value: 'C' }
+            ]
+        },
 
-          methods:{
-              addTodo:function(){
-                  var text = this.newTodo.trim();
-                  if(text){
-                      this.todos.push({name:text});
-                      this.newTodo = '';
-                  }
-              },
-              removeTodo:function(index){
-                  this.todos.splice(index,1);
-              }
-          }
-      })
-      $(".button-collapse").sideNav();
-      $(document).ready(function(){
-          $('.parallax').parallax();
-          $('.modal-trigger').leanModal({
-              dismissible: true, // 点击模态框外部则关闭模态框
-              opacity: .5, // 背景透明度
-              in_duration: 300, // 切入时间
-              out_duration: 200, // 切出时间
-              //ready: function() { alert('Ready'); }, // 当模态框打开时执行的函数
-              //complete: function() { alert('Closed'); } // 当模态框关闭时执行的函数
-          });
+        methods:{
+            addTodo:function(){
+                var text = this.newTodo.trim();
+                if(text){
+                    this.todos.push({name:text});
+                    this.newTodo = '';
+                }
+            },
+            removeTodo:function(index){
+                this.todos.splice(index,1);
+            }
+        }
+    })
+    $(".button-collapse").sideNav();
+    $(document).ready(function(){
+        //配置巨幕
+        $('.slider').slider({
+            full_width: true,
+            height:450
+//              Indicators（指示器）
+//              Transition（动画时间
+//              Interval（轮播间隔
+        });
+        //打开模态弹窗
+        $('.parallax').parallax();
+        $('.modal-trigger').leanModal({
+            dismissible: true, // 点击模态框外部则关闭模态框
+            opacity: .5, // 背景透明度
+            in_duration: 300, // 切入时间
+            out_duration: 200, // 切出时间
+            //ready: function() { alert('Ready'); }, // 当模态框打开时执行的函数
+            //complete: function() { alert('Closed'); } // 当模态框关闭时执行的函数
+        });
 
-//          $('.myclick').hover(
-//                  function () {
-//                      $(this).children('.card-reveal').css({
-//                          display: 'block',
-//                          transform: 'translateY(-100%)',
-//                          filter:'blur(10px)'
-//                      })
-//                  },
-//                  function () {
-//                      $(this).children('.card-reveal').css({
-//                          display: 'none'
-//                      });
-//                  }
-//          );
-          $('.myclick').mouseleave(function (){
-              $(this).children('.card-reveal').fadeOut(800);
-          });
-          $('.myclick').click(function(){
-              $(this).children('.card-reveal').fadeIn(800);
-          });
-          //三级联动
+        $('.myclick').mouseleave(function (){
+            $(this).children('.card-reveal').fadeOut(800);
+        });
+        $('.myclick').click(function(){
+            $(this).children('.card-reveal').fadeIn(800);
+        });
+        //三级联动
 
-          $(".selectList").each(function(){
-              var url = "/linkList";
-              var areaJson = [];
-              /*测试数据
-              var areaJson = [
-                  {"c":"南京市",
-                      "d":[
-                          {"dt":"玄武区",
-                              "cim":[
-                                  {"cit":"幸福蓝海"},
-                                  {"cit":"万达影院"},
-                                  {"cit":"中华大剧院"}
-                              ]},
-                          {"dt":"江宁区",
-                              "cim":[
-                                  {"cit":"南京星河国际影城"},
-                                  {"cit":"南京金逸影城-IMAX同曦店"}
-                              ]}
-                      ]},
-                  {"c":"测试城市北京",
-                      "d":[
-                          {"dt":"测试区域东城区",
-                              "cim":[
-                                  {"cit":"测试影院幸福蓝海东"},
-                                  {"cit":"测试影院万达影院东"}
-                              ]},
-                          {"dt":"测试区域西城区",
-                              "cim":[
-                                  {"cit":"幸福蓝海"},
-                                  {"cit":"万达影院"},
-                                  {"cit":"中华大剧院"}
-                              ]}
-                      ]}
-              ];
-              */
-              var temp_html;
-              var oCity = $(this).find(".city");
-              var oDistrict = $(this).find(".district");
-              var oCinema = $(this).find(".cinema");
-              //初始化城市
-              var city = function(){
-                  $.each(areaJson,function(i,city){
-                      temp_html += "<option value = '" + city.c + "'>" + city.c + "</option>";
-                  });
-                  oCity.html(temp_html);
-                  district();
-              };
-              //初始化区域
-              var district = function(){
-                  temp_html = "";
-                  var n = oCity.get(0).selectedIndex;
-                  $.each(areaJson[n].d,function(i,district){
-                      temp_html += "<option value = '" + district.dt + "'>" + district.dt + "</option>";
-                  });
-                  oDistrict.html(temp_html);
-                  cinema();
-              };
-              //初始化影院
-              var cinema = function(){
-                  temp_html = "";
-                  var n = oCity.get(0).selectedIndex;
-                  var m = oDistrict.get(0).selectedIndex;
-                  if(typeof(areaJson[n].d[m].cim) == "undefined"){
-                      oCinema.css("display","none");
-                  }else{
-                      oCinema.css("display","inline");
-                      $.each(areaJson[n].d[m].cim,function(i,cinema){
-                          temp_html += "<option value = '" + cinema.cid + "'>" + cinema.cit + "</option>";
-                      })
-                  }
-                  oCinema.html(temp_html);
+        $(".selectList").each(function(){
+            var url = "/linkList";
+            var areaJson = [];
+            var temp_html;
+            var oCity = $(this).find(".city");
+            var oDistrict = $(this).find(".district");
+            var oCinema = $(this).find(".cinema");
+            //初始化城市
+            var city = function(){
+                $.each(areaJson,function(i,city){
+                    temp_html += "<option value = '" + city.c + "'>" + city.c + "</option>";
+                });
+                oCity.html(temp_html);
+                district();
+            };
+            //初始化区域
+            var district = function(){
+                temp_html = "";
+                var n = oCity.get(0).selectedIndex;
+                $.each(areaJson[n].d,function(i,district){
+                    temp_html += "<option value = '" + district.dt + "'>" + district.dt + "</option>";
+                });
+                oDistrict.html(temp_html);
+                cinema();
+            };
+            //初始化影院
+            var cinema = function(){
+                temp_html = "";
+                var n = oCity.get(0).selectedIndex;
+                var m = oDistrict.get(0).selectedIndex;
+                if(typeof(areaJson[n].d[m].cim) == "undefined"){
+                    oCinema.css("display","none");
+                }else{
+                    oCinema.css("display","inline");
+                    $.each(areaJson[n].d[m].cim,function(i,cinema){
+                        temp_html += "<option value = '" + cinema.cid + "'>" + cinema.cit + "</option>";
+                    })
+                }
+                oCinema.html('<option disabled selected>请选择影院</option>');
+                oCinema.append(temp_html);
 
 
-              };
-              //选择城市改变区域
-              oCity.change(function(){
-                  district();
-              });
-              //选择城市改变影院
-              oDistrict.change(function(){
-                  cinema();
-              });
-              //获取当前影院下的影片价格数据
-              oCinema.change(function(){
-                  var selectedFilmID = $(this).parent().prev().attr('value');
-                  var selectedCinemaID = oCinema.find("option:selected").attr('value');
-                  var $$ = $(this).parent().parent().next('.createTable');
-                  $.ajax({
-                      url:'/priceJson',
-                      type:'POST',
-                      async:false,
-                      timeout:500,
-                      data:{
-                          selectedCinemaID:selectedCinemaID,
-                          selectedFilmID:selectedFilmID
-                      },
-                      dataType:'json',
-                      success:function(result){
-                          if(result){
-                              result = JSON.parse(result);
-                              createShowingTable(result,$$);
-                          }else{
-                              alert('Result is null!');
-                          }
+            };
+            //选择城市改变区域
+            oCity.change(function(){
+                district();
+            });
+            //选择城市改变影院
+            oDistrict.change(function(){
+                cinema();
+            });
+            //获取当前影院下的影片价格数据
+            oCinema.change(function(){
+                var selectedFilmID = $(this).parent().prev().attr('value');
+                var selectedCinemaID = oCinema.find("option:selected").attr('value');
+                var $$ = $(this).parent().parent().next('.createTable');
+                $.ajax({
+                    url:'/priceJson',
+                    type:'POST',
+                    async:false,
+                    timeout:500,
+                    data:{
+                        selectedCinemaID:selectedCinemaID,
+                        selectedFilmID:selectedFilmID
+                    },
+                    dataType:'json',
+                    success:function(result){
+                        if(result){
+                            result = JSON.parse(result);
+                            createShowingTable(result,$$);
+                        }else{
+                            alert('Result is null!');
+                        }
 
-                      },
-                      error:function(){
-                          alert('Ajax err!');
-                      }
+                    },
+                    error:function(){
+                        alert('Ajax err!');
+                    }
 
-                  })
-              })
-              //获取影院json数据
-              if(areaJson == ''){
-                  $.getJSON(url,function(data){
-                      areaJson = data;
-                      city();
-                  });
-              }
+                })
+            })
+            //获取影院json数据
+            if(areaJson == ''){
+                $.getJSON(url,function(data){
+                    areaJson = data;
+                    city();
+                });
+            }
 
+            //动态的创建一个table
+            function createShowingTable(data,$$) {
+                var tableStr = "<table class='striped'>";
+                tableStr = tableStr
+                        +"<thead>"
+                        +"<tr>"
+                        +"<td>序列</td>"
+                        +"<td>场次</td>"
+                        +"<td>格瓦拉</td>"
+                        +"<td>美团(猫眼)</td>"
+                        +"<td>淘宝电影</td>"
+                        +"<td>糯米</td>"
+                        +"<td>大众点评</td>"
+                        +"</tr>"
+                        +"</thead><tbody>";
+                var len = data.length;
+                for ( var i = 0; i < len; i++) {
+                    //console.log(data[i].price_id);
+                    tableStr = tableStr + "<tr>"
+                            +"<td>"+ (i+1) + "</td>"
+                            + "<td>"+ data[i].start_time+"</br><span style='font-size: 12px;color: chocolate;float:left;margin-left: -8px'>散场"+ data[i].end_time + "</span></td>"
+                            + "<td value='gewara'>" + data[i].price +"</br><span style='font-size: 12px;color: chocolate;float:left;margin-left: -13px'>"+ data[i].standard + "</span></td>"
+                            +"<td style='color: chocolate;'>暂无接入</td>"
+                            +"<td style='color: chocolate;'>暂无接入</td>"
+                            +"<td style='color: chocolate;'>暂无接入</td>"
+                            +"<td style='color: chocolate;'>暂无接入</td>"
+                            +"</tr>";
+                }
+                if(len==0){
+                    tableStr = tableStr + "<tr>"
+                            +"<td colspan='7' style='text-align: center' ><font color='#cd0a0a'>暂无记录！</font></td>"
+                            +"</tr>";
+                }
+                tableStr = tableStr + "</tbody></table>";
+                //添加到div中
+                $$.html(tableStr);
+            }
 
-              //测试函数开始
-              //city();
+        });
+    });
 
-              //动态的创建一个table
-              function createShowingTable(data,$$) {
-                  var tableStr = "<table class='striped'>";
-                  tableStr = tableStr
-                          +"<thead>"
-                          +"<tr>"
-                          +"<td>序列</td>"
-                          +"<td>场次</td>"
-                          +"<td>格瓦拉</td>"
-                          +"<td>美团(猫眼)</td>"
-                          +"<td>淘宝电影</td>"
-                          +"<td>糯米</td>"
-                          +"<td>大众点评</td>"
-                          +"</tr>"
-                          +"</thead><tbody>";
-                  var len = data.length;
-                  for ( var i = 0; i < len; i++) {
-                      //console.log(data[i].price_id);
-                      tableStr = tableStr + "<tr>"
-                              +"<td>"+ (i+1) + "</td>"
-                              + "<td>"+ data[i].start_time+'-'+ data[i].end_time + "</td>"
-                              + "<td value='gewara'>" + data[i].price + "</td>"
-                              +"<td style='color: chocolate;'>暂无接入</td>"
-                              +"<td style='color: chocolate;'>暂无接入</td>"
-                              +"<td style='color: chocolate;'>暂无接入</td>"
-                              +"<td style='color: chocolate;'>暂无接入</td>"
-                              +"</tr>";
-                  }
-                  if(len==0){
-                      tableStr = tableStr + "<tr>"
-                              +"<td colspan='6' style='text-align: center' ><font color='#cd0a0a'>暂无记录！</font></td>"
-                              +"</tr>";
-                  }
-                  tableStr = tableStr + "</tbody></table>";
-                  //添加到div中
-
-                  $$.html(tableStr);
-              }
-
-          });
-
-
-      });
-
-  </script>
-  </body>
+</script>
+</body>
 </html>

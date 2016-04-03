@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<% include ./public/head %>
+<body>
+<% include ./public/header %>
+<div style="width: 500px;margin: 0 auto;">
+    <% if(data.resultcode == 200){%>
+    <% data.result.forEach(function(list){ %>
+        <div class ='boxoffice'>
+            <p>
+                <span><%= list.name %></span>
+                <span> [观影人数]：<%= list.people %>人次</span>
+                <span> [票房]：<%= list.boxoffice %>万元</span>
+            </p>
+
+        </div>
+    <% })} %>
+</div>
+<% include ./public/footer %>
+<script>
+
+</script>
+</body>
+</html>
