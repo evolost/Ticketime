@@ -15,8 +15,8 @@ router.get('/page/:num', function(req, res){
 	res.render('index', {
 		layers: laypage({
 			curr: req.params.page || 1
-			,url: req.url //必传参数，获取当前页的url
-			,pages: 18 //分页总数你需要通过sql查询得到
+			,url: req.url //获取当前页的url
+			,pages: 18 //分页总数
 		}),
 		test:'test'
 	})

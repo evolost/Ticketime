@@ -16,10 +16,8 @@
     "laypage": "^1.1.1",
     "morgan": "^1.6.1",
     "mysql": "^2.10.2",
-    "phantom": "^2.0.10",
     "request": "^2.67.0",
     "serve-favicon": "^2.3.0",
-    "spooky": "^0.2.5",
     "util": "^0.10.3",
     "vue": "^1.0.17",
     "nightmare": "^2.2.0"
